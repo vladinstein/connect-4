@@ -10,14 +10,19 @@ class Connect_4:
         for i in range(6):
             for j in range(7):
                 if j < 4:
+                    # Check victory in a row
                     if self.board[i][j] == self.board[i][j+1] == self.board[i][j+2] == self.board[i][j+3]:
                         return self.board[i][j]
+                    # Check victory diagonal top to bottom
                     if (i > 2 and 
                         self.board[i][j] == self.board[i-1][j+1] == self.board[i-2][j+2] == self.board[i-3][j+3]):
                         return self.board[i][j]
                 if i < 3:
-                    if self.board[i][j] == self.board[i+1][j] == self.board[i+2][j] == self.board[i+3][j]:
+                    # Check victory in a column
+                    if (isinstance(self.board[i][j], str) and 
+                        self.board[i][j] == self.board[i+1][j] == self.board[i+2][j] == self.board[i+3][j]):
                         return self.board[i][j]
+                    # Check victory diagonal bottom to top
                     if (j < 4 and 
                         self.board[i][j] == self.board[i+1][j+1] == self.board[i+2][j+2] == self.board[i+3][j+3]):
                         return self.board[i][j]
@@ -35,17 +40,18 @@ class Connect_4:
 game = Connect_4()
 
 window = tk.Tk()
-window.geometry("800x800")
+width = 700
+height = 600
+window.geometry(f"{width}x{height}")
 window.configure(background="grey")
 window.title("Geometry")
 window.resizable(False, False)
 
-canvas = Canvas(width="750", height="750", bg="white")
-canvas.pack(pady = 20)
-
-button = canvas.create_oval(5, 5, 100, 100, width = 3, fill="orange", activefill="blue")
-canvas.create_oval(105, 5, 205, 100, width = 3, fill="orange")
-
+canvas = Canvas(width=width, height=height, bg="white")
+canvas.pack()
+for i in range(7):
+    button = canvas.create_oval(width / 140 + width * i / 7 , height / 120, width * 9 / 70 + width * i / 7, 
+                                height * 3 / 20, width = 3, fill="orange", activefill="blue")
 
 
 
